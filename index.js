@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const router = require('./routes');
+const router = require("./routes");
 
 const mongoose = require("mongoose");
 
@@ -17,12 +17,8 @@ database.on("open", () => {
   console.log("connected to database");
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello World express!");
-});
+app.use("/api", router);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}!`);
 });
-
-app.use('/api', router);

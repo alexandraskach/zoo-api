@@ -1,16 +1,25 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Dog = require('./models/Dog');
+const Animal = require("./models/Animal");
 
 // Home page route.
-router.get('/', function (req, res) {
-  res.send('Wiki home page');
-})
+router.get("/", function (req, res) {
+  res.send("Wiki home page");
+});
 
-// dogs page route.
-router.get('/dogs', async (req, res) => {
-  const dogs = await Dog.find();
-  res.send(dogs);
-})
+// animals GET
+router.get("/animals", async (req, res) => {
+  const animals = await Animal.find();
+  res.send(animals);
+});
 
+// animals POST
+// router.post("/animals", async (req, res) => {
+//   const animal = new Animal({
+//     type: req.body.type,
+//     animalName: req.body.animalName,
+//     nickname: req.body.nickname,
+//   });
+//   res.send(animal);
+// });
 module.exports = router;
