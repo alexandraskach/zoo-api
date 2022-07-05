@@ -1,24 +1,25 @@
-const express = require('express')
+const express = require("express");
 const app = express();
 const port = 3000;
 
-var mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-var mongoDB = '';
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+let mongoDBURL = "mongodb://127.0.0.1:27017/zoo";
+mongoose.connect(mongoDBURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+const database = mongoose.connection;
 
-var db = mongoose.connection;
+database.on("error", console.error.bind(console, "connection error:"));
+database.on("open", () => {
+  console.log("connected to database");
+});
 
-//Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World express!')
+app.get("/", (req, res) => {
+  res.send("Hello World express!");
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`)
+  console.log(`Example app listening on port ${port}!`);
 });
