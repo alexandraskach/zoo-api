@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-// import Animal from "./models/Animal";
 const Animal = require("./models/Animal");
 const bodyParser = require("body-parser");
 
-// create application/json parser
+// application/json parser
 const jsonParser = bodyParser.json();
 
 // animals GET
