@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 
 const FeedingSchema = new mongoose.Schema({
-  animal_nickname: { type: String, required: true },
-  food: { type: String, required: true },
+  animal_name: { type: String, required: true },
+  diet: { type: String, required: true },
+  zoo_assistant: { type: String, required: true },
 });
 
 //Export model

@@ -1,4 +1,4 @@
-# Installation
+# Installation & lancement de l'API
 
 ` npm install`
 
@@ -6,7 +6,7 @@
 
 # Routes
 
-_Animal_
+_ANIMAL_
 
 **POST api/animals**
 
@@ -16,13 +16,21 @@ Request body example
 
 **GET api/animals**
 
-_User_
+**PUT api/animals/:id**
+
+Request body example
+
+` {type: "bird", animalName: "hawk", nickname: "Speedy"}`
+
+**DELETE api/animals/:id**
+
+_USER_
 
 **POST api/users**
 
 **GET api/users**
 
-_Feeding_
+_FEEDING_
 
 **POST api/feedings**
 
