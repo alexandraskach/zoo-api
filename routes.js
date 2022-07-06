@@ -25,13 +25,24 @@ router.get("/animals/:id", async (req, res) => {
 
 // animals POST
 router.post("/animals", jsonParser, async (req, res, next) => {
-  console.log(req.body);
+  console.log('red body',req.body);
+
   const animal = new Animal({
-    type: req.body.type,
-    animalName: req.body.animalName,
-    nickname: req.body.nickname,
+    name: req.body.name,
+    latin_name: req.body.latin_name,
+    animal_type: req.body.animal_type,
+    active_time: req.body.active_time,
+    length_min: req.body.length_min,
+    length_max: req.body.length_max,
+    lifespan: req.body.lifespan,
+    habitat: req.body.habitat,
+    diet: req.body.diet,
+    geo_range: req.body.geo_range,
+    image_link: req.body.image_link,
   });
-  animal.save(function (err, animal) {
+  
+
+  await animal.save(function (err, animal) {
     if (err) {
       return next(err);
     }
@@ -64,9 +75,17 @@ router.put("/animals/:id", jsonParser, async (req, res) => {
   const { id: _id } = req.params;
   const newAnimal = {
     _id,
-    type: req.body.type,
-    animalName: req.body.animalName,
-    nickname: req.body.nickname,
+    name: req.body.name,
+    latin_name: req.body.latin_name,
+    animal_type: req.body.animal_type,
+    active_time: req.body.active_time,
+    length_min: req.body.length_min,
+    length_max: req.body.length_max,
+    lifespan: req.body.lifespan,
+    habitat: req.body.habitat,
+    diet: req.body.diet,
+    geo_range: req.body.geo_range,
+    image_link: req.body.image_link,
   };
 
   Animal.findByIdAndUpdate(_id, newAnimal, (err) => {
