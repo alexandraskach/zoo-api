@@ -1,12 +1,11 @@
 const express = require("express");
+require("dotenv").config();
 const app = express();
 const port = 3000;
 const router = require("./routes");
-
 const mongoose = require("mongoose");
 
-let mongoDBURL = "mongodb://127.0.0.1:27017/zoo";
-mongoose.connect(mongoDBURL, {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

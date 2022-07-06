@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const Animal = require("./models/Animal");
+const Animal = require("./models/animal.model");
 const bodyParser = require("body-parser");
-const Feeding = require("./models/Feeding");
+const Feeding = require("./models/feeding.model");
 
 // application/json parser
 const jsonParser = bodyParser.json();
