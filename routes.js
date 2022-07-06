@@ -14,6 +14,16 @@ router.get("/animals", async (req, res) => {
   res.send(animals);
 });
 
+// animals GET by Id
+router.get("/animals/:id", async (req, res) => {
+
+  const { id: _id } = req.params;
+  const animals = await Animal.findById(_id);
+  console.log(animals);
+  res.send(animals);
+});
+
+
 // animals POST
 router.post("/animals", jsonParser, async (req, res, next) => {
   console.log(req.body);
@@ -28,6 +38,25 @@ router.post("/animals", jsonParser, async (req, res, next) => {
     }
     res.send(201, animal);
   });
+});
+
+// animals DELETE by Id
+
+router.delete("/animals/:id", async (req, res) => {
+
+  const { id: _id } = req.params;
+  console.log('testing id zoo', req)
+  console.log('my req',req);
+  
+  const animals = await Animal.findByIdAndDelete(_id);
+  console.log('is deleting zoo',animals)
+
+  if(animals == null || undefined) {
+    console.log('delete animal',animals);
+  }
+
+  res.send('is delete',animals);
+
 });
 
 // animals PUT
@@ -53,5 +82,6 @@ router.put("/animals/:id", jsonParser, async (req, res) => {
     }
   });
 });
+
 
 module.exports = router;
