@@ -7,11 +7,6 @@ const bodyParser = require("body-parser");
 // create application/json parser
 const jsonParser = bodyParser.json();
 
-// Home page route.
-router.get("/", function (req, res) {
-  res.send("Wiki home page");
-});
-
 // animals GET
 router.get("/animals", async (req, res) => {
   const animals = await Animal.find();
@@ -34,4 +29,29 @@ router.post("/animals", jsonParser, async (req, res, next) => {
     res.send(201, animal);
   });
 });
+
+// animals PUT
+router.put("/animals/:id", jsonParser, async (req, res) => {
+  console.log("hello");
+  const { id: _id } = req.params;
+  const newAnimal = {
+    _id,
+    type: req.body.type,
+    animalName: req.body.animalName,
+    nickname: req.body.nickname,
+  };
+
+  Animal.findByIdAndUpdate(_id, newAnimal, (err) => {
+    if (err) {
+      res.json({
+        newAnimal,
+        success: false,
+        msg: "Failed to update animal",
+      });
+    } else {
+      res.json({ newAnimal, success: true, msg: "Animal updated" });
+    }
+  });
+});
+
 module.exports = router;

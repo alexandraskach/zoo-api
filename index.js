@@ -12,13 +12,13 @@ mongoose.connect(mongoDBURL, {
 });
 const database = mongoose.connection;
 
-database.on("error", console.error.bind(console, "connection error:"));
+database.on("error", console.error.bind(console, "onnection error:"));
 database.on("open", () => {
-  console.log("connected to database");
+  console.log("Connected to database");
 });
 
 app.use("/api", router);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log(`API is listening on port ${port}!`);
 });
