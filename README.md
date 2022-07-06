@@ -12,7 +12,7 @@ _ANIMAL_
 
 Request body example
 
-` {type: "bird", animalName: "hawk", nickname: "Speedy"}`
+`{name: "", latin_name: "", animal_type: "", active_time: "", length_min: number, length_max: number, lifespan: number, habitat: "", diet: "", geo_range: "",image_link: ""}`
 
 **GET api/animals**
 
@@ -20,7 +20,7 @@ Request body example
 
 Request body example
 
-` {type: "bird", animalName: "hawk", nickname: "Speedy"}`
+`{name: "", latin_name: "", animal_type: "", active_time: "", length_min: number, length_max: number, lifespan: number, habitat: "", diet: "", geo_range: "",image_link: ""}`
 
 **DELETE api/animals/:id**
 
@@ -32,6 +32,10 @@ _USER_
 
 _FEEDING_
 
+**GET api/feedings**
+
 **POST api/feedings**
 
-**GET api/feedings**
+Request body example
+
+`{animal_name: "African Lion", diet: "Hoofed mammals, hares, small birds and reptiles", zoo_assistant: "user"}`
