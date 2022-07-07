@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Animal = require("../models/animal.model");
-const User = require("../models/user.model");
 
 async function getAnimalById(_id) {
   const animals = await Animal.findById(_id);

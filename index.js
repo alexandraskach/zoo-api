@@ -4,6 +4,10 @@ const app = express();
 const port = 3000;
 const router = require("./routes/routes");
 const mongoose = require("mongoose");
+// const {
+//   checkTokenMiddleware,
+//   extractBearerToken,
+// } = require("./middleware/authentication");
 
 console.log(process.env.DATABASE_URL);
 mongoose.connect(process.env.DATABASE_URL, {
