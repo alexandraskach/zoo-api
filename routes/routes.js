@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const Feeding = require("../models/feeding.model");
 const User = require("../models/user.model");
 const animalService = require("../services/animal-service");
+const authController = require("../controller/auth.controller");
 
 // application/json parser
 const jsonParser = bodyParser.json();
@@ -167,5 +168,7 @@ router.get("/get-animals-by-location/:location", async (req, res) => {
 //   console.log(animalsByLocation);
 //   res.send(animalsByLocation);
 // });
+
+router.post("/login", jsonParser, authController.login);
 
 module.exports = router;
