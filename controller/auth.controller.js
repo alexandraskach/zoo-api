@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { extractBearerToken } = require("../middleware/authentication");
 const userService = require("../services/user-service");
 // Récupérer le secret depuis les variables d'environnement
 const SECRET = process.env.SECRET;
@@ -27,5 +28,13 @@ exports.login = async (req, res) => {
     });
   } else {
     res.send("Username or password is incorrect");
+  }
+};
+
+exports.verifierToken = async (req, res) => {
+  const token =
+    req.headers.authorization && extractBearerToken(req.headers.authorization);
+  if (!token) {
+    return false;
   }
 };

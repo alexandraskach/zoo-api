@@ -17,10 +17,11 @@ const jsonParser = bodyParser.json();
 
 // animals GET
 router.get("/animals", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const animals = await animalService.getAllAnimal();
   console.log("anak", animals);
@@ -29,10 +30,11 @@ router.get("/animals", async (req, res) => {
 
 // animals GET by Id
 router.get("/animals/:id", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const { id: _id } = req.params;
   const animal = await animalService.getAnimalById(_id);
@@ -41,10 +43,11 @@ router.get("/animals/:id", async (req, res) => {
 
 // animals POST
 router.post("/animals", jsonParser, async (req, res, next) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const animal = animalService.createAnimal(req);
   await animal.save(function (err, animal) {
@@ -58,10 +61,11 @@ router.post("/animals", jsonParser, async (req, res, next) => {
 // animals DELETE by Id
 
 router.delete("/animals/:id", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const { id: _id } = req.params;
   const animals = await animalService.findAndDeleteById(_id);
@@ -70,10 +74,11 @@ router.delete("/animals/:id", async (req, res) => {
 
 // animals PUT
 router.put("/animals/:id", jsonParser, async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const { id: _id } = req.params;
   const newAnimal = await animalService.putAnimal(req);
@@ -92,10 +97,11 @@ router.put("/animals/:id", jsonParser, async (req, res) => {
 
 // feedings GET
 router.get("/feedings", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const feedings = await Feeding.find();
   console.log(feedings);
@@ -104,10 +110,11 @@ router.get("/feedings", async (req, res) => {
 
 // feedings POST
 router.post("/feedings", jsonParser, async (req, res, next) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   console.log(req.body);
   const feeding = new Feeding({
@@ -124,10 +131,11 @@ router.post("/feedings", jsonParser, async (req, res, next) => {
 });
 // feedings PUT
 router.put("/feedings/:id", jsonParser, async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   console.log("hello");
   const { id: _id } = req.params;
@@ -153,10 +161,11 @@ router.put("/feedings/:id", jsonParser, async (req, res) => {
 
 // users GET
 router.get("/users", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const users = await User.find();
   console.log(users);
@@ -165,10 +174,11 @@ router.get("/users", async (req, res) => {
 
 // users GET by Id
 router.get("/users/:id", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const { id: _id } = req.params;
   const users = await User.findById(_id);
@@ -188,10 +198,11 @@ router.post("/register", jsonParser, async (req, res, next) => {
 });
 // animals filter by location GET
 router.get("/get-animals-by-location/:location", async (req, res) => {
-  const token =
-    req.headers.authorization && extractBearerToken(req.headers.authorization);
-  if (!token) {
-    return res.status(401).json({ message: "Error. Need a token" });
+  const isConnected = await authController.verifierToken(req, res);
+  if (isConnected === false) {
+    return res
+      .status(401)
+      .json({ message: "Error. Need a token or token is expired" });
   }
   const { location: _location } = req.params;
   const animalsByLocation = await Animal.find({
