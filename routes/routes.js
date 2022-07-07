@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const Animal = require("./models/animal.model");
+const Animal = require("../models/animal.model");
 const bodyParser = require("body-parser");
-const Feeding = require("./models/feeding.model");
+const Feeding = require("../models/feeding.model");
+const User = require("../models/user.model");
 
 // application/json parser
 const jsonParser = bodyParser.json();
@@ -24,7 +25,7 @@ router.get("/animals/:id", async (req, res) => {
 
 // animals POST
 router.post("/animals", jsonParser, async (req, res, next) => {
-  console.log('red body',req.body);
+  console.log("red body", req.body);
 
   const animal = new Animal({
     name: req.body.name,
@@ -39,7 +40,6 @@ router.post("/animals", jsonParser, async (req, res, next) => {
     geo_range: req.body.geo_range,
     image_link: req.body.image_link,
   });
-  
 
   await animal.save(function (err, animal) {
     if (err) {
@@ -143,5 +143,41 @@ router.put("/feedings/:id", jsonParser, async (req, res) => {
     }
   });
 });
+
+// users GET
+router.get("/users", async (req, res) => {
+  const users = await User.find();
+  console.log(users);
+  res.send(users);
+});
+
+// users GET by Id
+router.get("/users/:id", async (req, res) => {
+  const { id: _id } = req.params;
+  const users = await User.findById(_id);
+  console.log(users);
+  res.send(users);
+});
+
+// animals filter by location GET
+router.get("/get-animals-by-location/:location", async (req, res) => {
+  const { location: _location } = req.params;
+  const animalsByLocation = await Animal.find({
+    geo_range: _location,
+  });
+  console.log(animalsByLocation);
+  res.send(animalsByLocation);
+});
+
+// animals filter by weigth range
+// router.get("/get-animals-by-weight-range/:min?:max", async (req, res) => {
+//   const { min: _min , max: _max} = req.params;
+//   const animalsByLocation = await Animal.find({
+//     weigth_min: weigth_min <= _min,
+//     weigth_max: weigth_max <= _min,
+//   });
+//   console.log(animalsByLocation);
+//   res.send(animalsByLocation);
+// });
 
 module.exports = router;
