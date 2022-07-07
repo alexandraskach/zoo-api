@@ -8,7 +8,7 @@ exports.login = async (req, res) => {
   // Recherche d'un utilisateur avec le username et le password
   const user = await userService.findUser(email, password);
 
-  if (user) {
+  if (user.length == 1) {
     const accessToken = jwt.sign(
       {
         firstname: user.firstname,
