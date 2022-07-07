@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const Animal = require("./models/animal.model");
+const Animal = require("../models/animal.model");
 
 
 
-export function getAnimalById(_id) {
+async function getAnimalById(_id) {
     const animals = await Animal.findById(_id);
     return animals;
 }
 
-export function getAllAnimal() {
+async function getAllAnimal() {
     const animals = await Animal.find();
     return animals;
 }
 
 
 
-export function findAndDeleteById(_id) {
+async function findAndDeleteById(_id) {
 
     try {
         const animals = await Animal.findByIdAndDelete(_id);
@@ -29,6 +29,8 @@ export function findAndDeleteById(_id) {
         
     }
 }
+
+module.exports = {getAnimalById, getAllAnimal, findAndDeleteById }
 
 
 

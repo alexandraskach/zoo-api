@@ -4,7 +4,7 @@ const Animal = require("../models/animal.model");
 const bodyParser = require("body-parser");
 const Feeding = require("../models/feeding.model");
 const User = require("../models/user.model");
-const animalService = require("./services/animal-servcie");
+const animalService = require("../services/animal-servcie");
 
 // application/json parser
 const jsonParser = bodyParser.json();
