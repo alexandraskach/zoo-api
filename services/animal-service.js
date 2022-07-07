@@ -41,6 +41,16 @@ function createAnimal(req) {
   return animal;
 }
 
+function registerUser(req) {
+  const user = new User({
+    email: req.body.email,
+    password: req.body.password,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+  });
+  return user;
+}
+
 function putAnimal(req) {
   const { id: _id } = req.params;
   const newAnimal = {
@@ -67,4 +77,5 @@ module.exports = {
   findAndDeleteById,
   createAnimal,
   putAnimal,
+  registerUser
 };

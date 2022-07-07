@@ -176,6 +176,16 @@ router.get("/users/:id", async (req, res) => {
   res.send(users);
 });
 
+// register USer
+router.post("/register", jsonParser, async (req, res, next) => {
+  const user = animalService.registerUser(req);
+  await user.save(function (err, user) {
+    if (err) {
+      return next(err);
+    }
+    res.send(201, user);
+  });
+});
 // animals filter by location GET
 router.get("/get-animals-by-location/:location", async (req, res) => {
   const token =
