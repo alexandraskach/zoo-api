@@ -24,20 +24,7 @@ router.get("/animals/:id", async (req, res) => {
 
 // animals POST
 router.post("/animals", jsonParser, async (req, res, next) => {
-  const animal = new Animal({
-    name: req.body.name,
-    latin_name: req.body.latin_name,
-    animal_type: req.body.animal_type,
-    active_time: req.body.active_time,
-    length_min: req.body.length_min,
-    length_max: req.body.length_max,
-    lifespan: req.body.lifespan,
-    habitat: req.body.habitat,
-    diet: req.body.diet,
-    geo_range: req.body.geo_range,
-    image_link: req.body.image_link,
-  });
-
+  const animal = animalService.createAnimal(req);
   await animal.save(function (err, animal) {
     if (err) {
       return next(err);
@@ -45,6 +32,7 @@ router.post("/animals", jsonParser, async (req, res, next) => {
     res.send(201, animal);
   });
 });
+
 
 // animals DELETE by Id
 
@@ -56,23 +44,8 @@ router.delete("/animals/:id", async (req, res) => {
 
 // animals PUT
 router.put("/animals/:id", jsonParser, async (req, res) => {
-  console.log("hello");
   const { id: _id } = req.params;
-  const newAnimal = {
-    _id,
-    name: req.body.name,
-    latin_name: req.body.latin_name,
-    animal_type: req.body.animal_type,
-    active_time: req.body.active_time,
-    length_min: req.body.length_min,
-    length_max: req.body.length_max,
-    lifespan: req.body.lifespan,
-    habitat: req.body.habitat,
-    diet: req.body.diet,
-    geo_range: req.body.geo_range,
-    image_link: req.body.image_link,
-  };
-
+  const newAnimal = await animalService.putAnimal(req);
   Animal.findByIdAndUpdate(_id, newAnimal, (err) => {
     if (err) {
       res.json({
@@ -157,15 +130,5 @@ router.get("/get-animals-by-location/:location", async (req, res) => {
   res.send(animalsByLocation);
 });
 
-// animals filter by weigth range
-// router.get("/get-animals-by-weight-range/:min?:max", async (req, res) => {
-//   const { min: _min , max: _max} = req.params;
-//   const animalsByLocation = await Animal.find({
-//     weigth_min: weigth_min <= _min,
-//     weigth_max: weigth_max <= _min,
-//   });
-//   console.log(animalsByLocation);
-//   res.send(animalsByLocation);
-// });
 
 module.exports = router;
