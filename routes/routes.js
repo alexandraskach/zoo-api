@@ -4,29 +4,26 @@ const Animal = require("../models/animal.model");
 const bodyParser = require("body-parser");
 const Feeding = require("../models/feeding.model");
 const User = require("../models/user.model");
+const animalService = require("./services/animal-servcie");
 
 // application/json parser
 const jsonParser = bodyParser.json();
 
 // animals GET
 router.get("/animals", async (req, res) => {
-  const animals = await Animal.find();
-  console.log(animals);
+  const animals = await animalService.getAllAnimal();
   res.send(animals);
 });
 
 // animals GET by Id
 router.get("/animals/:id", async (req, res) => {
   const { id: _id } = req.params;
-  const animals = await Animal.findById(_id);
-  console.log(animals);
-  res.send(animals);
+  const animal = await animalService.getAnimalById(_id);
+  res.send(animal);
 });
 
 // animals POST
 router.post("/animals", jsonParser, async (req, res, next) => {
-  console.log("red body", req.body);
-
   const animal = new Animal({
     name: req.body.name,
     latin_name: req.body.latin_name,
@@ -53,16 +50,7 @@ router.post("/animals", jsonParser, async (req, res, next) => {
 
 router.delete("/animals/:id", async (req, res) => {
   const { id: _id } = req.params;
-  console.log("testing id zoo", req);
-  console.log("my req", req);
-
-  const animals = await Animal.findByIdAndDelete(_id);
-  console.log("is deleting zoo", animals);
-
-  if (animals == null || undefined) {
-    console.log("delete animal", animals);
-  }
-
+  const animals = await animalService.findAndDeleteById(_id);
   res.send("is delete", animals);
 });
 
